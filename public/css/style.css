@@ -1,0 +1,10 @@
+.top-page {
+    background-image: url('../images/test.jpg');
+    background-color:rgba(0, 0, 0, .6);
+    background-blend-mode:darken;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: calc(100vh - 80px);
+}
