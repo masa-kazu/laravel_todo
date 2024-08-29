@@ -15,18 +15,11 @@
                     </div>
                     <table class="table table-hover mb-0">
                         <tbody class="text-center">
-                            <tr>
-                                <td class="table-active"><a href="#">プロジェクト1</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">プロジェクト2</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">プロジェクト3</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">プロジェクト4</a></td>
-                            </tr>
+                            @foreach ($projects as $project)
+                                <tr>
+                                    <td><a href="#">{{ $project->project_name }}</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

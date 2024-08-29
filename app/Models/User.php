@@ -44,4 +44,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Projectsテーブルとのリレーション
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
