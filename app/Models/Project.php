@@ -13,4 +13,12 @@ class Project extends Model
         'user_id',
         'project_name',
     ];
+
+    /**
+     * Usersテーブルとのリレーション
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
