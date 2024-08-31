@@ -17,7 +17,7 @@
                         <tbody class="text-center">
                             @foreach ($projects as $project)
                                 <tr>
-                                    <td><a href="#">{{ $project->project_name }}</a></td>
+                                    <td><a href="{{ route('tasks.index', $project->id) }}">{{ $project->project_name }}</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
