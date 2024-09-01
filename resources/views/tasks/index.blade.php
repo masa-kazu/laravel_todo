@@ -25,7 +25,7 @@
                             @foreach ($tasks as $task)
                                 <tr>
                                     <td><a href="#">{{ $task->task_name }}</a></td>
-                                    <td><span class="d-inline badge bg-secondary">{{ $task->task_status }}</span></td>
+                                    <td><span class="d-inline badge {{ $task->task_status_class }}">{{ $task->task_status_string }}</span></td>
                                     <td>{{ $task->due_date }}</td>
                                 </tr>
                             @endforeach
