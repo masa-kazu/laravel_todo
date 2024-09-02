@@ -17,4 +17,11 @@ class ProjectController extends Controller
 
         return view('projects.index', compact('projects'));
     }
+    /**
+     * プロジェクト作成画面
+     */
+    public function create()
+    {
+        return view('projects.create');
+    }
 }
