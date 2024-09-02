@@ -19,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // プロジェクト一覧画面
     Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+    // プロジェクト作成画面
+    Route::get('project/create', [ProjectController::class, 'create'])->name('projects.create');
+    // プロジェクト作成処理
+    Route::post('project/store', [ProjectController::class, 'store'])->name('projects.store');
     // タスク一覧画面
     Route::get('projects/{id}/tasks', [TaskController::class, 'index'])->name('tasks.index');
 });
