@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
+use App\Http\Requests\StoreProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -28,7 +29,7 @@ class ProjectController extends Controller
     /**
      * プロジェクト作成処理
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
         // プロジェクト作成処理
         $project = Project::create([
