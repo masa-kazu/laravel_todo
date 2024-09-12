@@ -193,6 +193,7 @@ return [
         'name' => 'ユーザー名',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'project_name' => 'プロジェクト名',
     ],
 
 ];
