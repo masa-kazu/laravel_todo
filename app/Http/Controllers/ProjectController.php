@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
@@ -32,10 +34,27 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         // プロジェクト作成処理
-        $project = Project::create([
-            'project_name' => $request->project_name,
-            'user_id' => Auth::id(),
-        ]);
+        DB::beginTransaction();
+
+        try {
+            // プロジェクト作成処理
+            $project = Project::create([
+                'project_name' => $request->project_name,
+                'user_id' => Auth::id(),
+            ]);
+
+            // トランザクションコミット
+            DB::commit();
+        } catch(\Exception $e) {
+            // トランザクションロールバック
+            DB::rollBack();
+
+            // ログ出力
+            Log::debug($e);
+
+            // エラー画面遷移
+            abort(500);
+        }
 
         return redirect()->route('projects.index');
     }
