@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::post('project/store', [ProjectController::class, 'store'])->name('projects.store');
     // タスク一覧画面
     Route::get('projects/{id}/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    // タスク作成画面
+    Route::get('projects/{id}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    // タスク作成処理
+    Route::post('projects/{id}/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 });
 
 require __DIR__.'/auth.php';
