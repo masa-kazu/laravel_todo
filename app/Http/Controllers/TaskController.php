@@ -26,5 +26,17 @@ class TaskController extends Controller
             'tasks',
         ));
     }
+    /**
+     * タスク作成画面
+     */
+    public function create($id)
+    {
+        // URLで送られてきたプロジェクトID
+        $currentProjectId = $id;
+
+        return view('tasks.create', compact(
+            'currentProjectId',
+        ));
+    }
 
 }
