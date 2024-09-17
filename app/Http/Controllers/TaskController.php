@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
@@ -37,6 +38,26 @@ class TaskController extends Controller
         return view('tasks.create', compact(
             'currentProjectId',
         ));
+    }
+
+    /**
+     * タスク作成処理
+     */
+    public function store(Request $request, $id)
+    {
+        // URLで送られてきたプロジェクトID
+        $currentProjectId = $id;
+
+        // タスク作成処理
+        $task = Task::create([
+            'project_id' => $currentProjectId,
+            'task_name' => $request->task_name,
+            'due_date' => $request->due_date,
+        ]);
+
+        return redirect()->route('tasks.index', [
+            'id' => $currentProjectId,
+        ]);
     }
 
 }
