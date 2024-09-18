@@ -194,6 +194,8 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'project_name' => 'プロジェクト名',
+        'task_name' => 'タスク名',
+        'due_date' => '期限',
     ],
 
 ];
