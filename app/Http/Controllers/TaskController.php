@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
+use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
 {
@@ -43,7 +44,7 @@ class TaskController extends Controller
     /**
      * タスク作成処理
      */
-    public function store(Request $request, $id)
+    public function store(StoreTaskRequest $request, $id)
     {
         // URLで送られてきたプロジェクトID
         $currentProjectId = $id;
