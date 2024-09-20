@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -49,12 +51,29 @@ class TaskController extends Controller
         // URLで送られてきたプロジェクトID
         $currentProjectId = $id;
 
-        // タスク作成処理
-        $task = Task::create([
-            'project_id' => $currentProjectId,
-            'task_name' => $request->task_name,
-            'due_date' => $request->due_date,
-        ]);
+        // トランザクション開始
+        DB::beginTransaction();
+
+        try {
+            // タスク作成処理
+            $task = Task::create([
+                'project_id' => $currentProjectId,
+                'task_name' => $request->task_name,
+                'due_date' => $request->due_date,
+            ]);
+
+            // トランザクションコミット
+            DB::commit();
+        } catch(\Exception $e) {
+            // トランザクションロールバック
+            DB::rollBack();
+
+            // ログ出力
+            Log::debug($e);
+
+            // エラー画面遷移
+            abort(500);
+        }
 
         return redirect()->route('tasks.index', [
             'id' => $currentProjectId,
