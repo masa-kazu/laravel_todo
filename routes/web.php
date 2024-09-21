@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::get('projects/{id}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     // タスク作成処理
     Route::post('projects/{id}/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+    // タスク編集画面
+    Route::get('projects/{id}/tasks/edit/{taskId}', [TaskController::class, 'edit'])->name('tasks.edit');
+    // タスク編集処理
+    Route::post('projects/{id}/tasks/update/{taskId}', [TaskController::class, 'update'])->name('tasks.update');
 });
 
 require __DIR__.'/auth.php';
