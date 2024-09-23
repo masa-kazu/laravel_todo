@@ -79,5 +79,25 @@ class TaskController extends Controller
             'id' => $currentProjectId,
         ]);
     }
+    /**
+     * タスク編集画面
+     */
+    public function edit($id, $taskId)
+    {
+        // タスクを取得
+        $task = Task::find($taskId);
+
+        // 進捗のテキスト(Taskモデルの定数取得)
+        $taskStatusStrings = Task::TASK_STATUS_STRING;
+
+        // 進捗のクラス(Taskモデルの定数取得)
+        $taskStatusClasses = Task::TASK_STATUS_CLASS;
+
+        return view('tasks.edit', compact(
+            'task',
+            'taskStatusStrings',
+            'taskStatusClasses',
+        ));
+    }
 
 }
