@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header bg-dark text-light d-flex justify-content-between align-items-center">
                         <p class="mb-0 h5">タスク</p>
-                        <a href="#" class="btn btn-primary">追加</a>
+                        <a href="{{ route('tasks.create', $currentProjectId) }}" class="btn btn-primary">追加</a>
                     </div>
                     <table class="table table-hover mb-0">
                         <thead class="text-light" style="background-color: rgb(106, 106, 106)">
@@ -24,7 +24,7 @@
                         <tbody class="text-center">
                             @foreach ($tasks as $task)
                                 <tr>
-                                    <td><a href="#">{{ $task->task_name }}</a></td>
+                                    <td><a href="{{ route('tasks.edit', [$currentProjectId, $task->id]) }}">{{ $task->task_name }}</a></td>
                                     <td><span class="d-inline badge {{ $task->task_status_class }}">{{ $task->task_status_string }}</span></td>
                                     <td>{{ $task->due_date }}</td>
                                 </tr>
