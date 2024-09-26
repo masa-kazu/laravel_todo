@@ -99,5 +99,30 @@ class TaskController extends Controller
             'taskStatusClasses',
         ));
     }
+    /**
+     * タスク編集処理
+     */
+    public function update(Request $request, $id, $taskId)
+    {
+        // URLで送られてきたプロジェクトID
+        $currentProjectId = $id;
+
+        // タスクを取得
+        $task = Task::find($taskId);
+
+        // タスク編集処理(fill)
+        $task->fill([
+            'task_name' => $request->task_name,
+            'task_status' => $request->task_status,
+            'due_date' => $request->due_date,
+        ]);
+
+        // タスク編集処理(save)
+        $task->save();
+
+        return redirect()->route('tasks.index', [
+            'id' => $currentProjectId,
+        ]);
+    }
 
 }
