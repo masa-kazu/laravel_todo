@@ -196,6 +196,8 @@ return [
         'project_name' => 'プロジェクト名',
         'task_name' => 'タスク名',
         'due_date' => '期限',
+        'task_name' => 'タスク名',
+        'task_status' => '進捗',
     ],
 
 ];
