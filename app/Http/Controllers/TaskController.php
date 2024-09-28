@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -102,7 +103,7 @@ class TaskController extends Controller
     /**
      * タスク編集処理
      */
-    public function update(Request $request, $id, $taskId)
+    public function update(UpdateTaskRequest $request, $id, $taskId)
     {
         // URLで送られてきたプロジェクトID
         $currentProjectId = $id;
@@ -110,15 +111,32 @@ class TaskController extends Controller
         // タスクを取得
         $task = Task::find($taskId);
 
-        // タスク編集処理(fill)
-        $task->fill([
-            'task_name' => $request->task_name,
-            'task_status' => $request->task_status,
-            'due_date' => $request->due_date,
-        ]);
+        // トランザクション開始
+        DB::beginTransaction();
 
-        // タスク編集処理(save)
-        $task->save();
+        try {
+            // タスク編集処理(fill)
+            $task->fill([
+                'task_name' => $request->task_name,
+                'task_status' => $request->task_status,
+                'due_date' => $request->due_date,
+            ]);
+
+            // タスク編集処理(save)
+            $task->save();
+
+            // トランザクションコミット
+            DB::commit();
+        } catch(\Exception $e) {
+            // トランザクションロールバック
+            DB::rollBack();
+
+            // ログ出力
+            Log::debug($e);
+
+            // エラー画面遷移
+            abort(500);
+        }
 
         return redirect()->route('tasks.index', [
             'id' => $currentProjectId,
